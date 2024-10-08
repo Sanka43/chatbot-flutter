@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'pages/login_page.dart';
 import 'pages/register_page.dart';
-import 'pages/home_page.dart';
+// import 'pages/home_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(Chatbot());
 }
 
-class MyApp extends StatelessWidget {
+class Chatbot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
-        '/home': (context) => HomePage(),
+        // '/home': (context) => HomePage(),
       },
     );
   }
