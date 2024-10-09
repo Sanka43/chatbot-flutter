@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
 // import 'package:dialogflow_flutter/dialogflow_flutter.dart';
@@ -51,32 +51,27 @@ class _ChatBotState extends State<ChatBot> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black26,
+      backgroundColor: Color(0xff1c1c1c),
       appBar: AppBar(
-        backgroundColor: Colors.black26,
+        backgroundColor: Color(0xff1c1c1c),
         title: Text(
-          "Chatbot",
+          "BlueChip",
           style: TextStyle(color: Colors.white),
         ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.logout),
-            onPressed: () {
-              Navigator.pushNamed(context, '/');
-            },
-          ),
-        ],
       ),
       body: Column(
         children: <Widget>[
           Flexible(
-            child: ListView.builder(
-              reverse: true,
-              itemCount: _messages.length,
-              itemBuilder: (context, index) {
-                return _buildMessageItem(
-                    _messages[index]['message'], _messages[index]['data']);
-              },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0), // Add padding around ListView
+              child: ListView.builder(
+                reverse: true,
+                itemCount: _messages.length,
+                itemBuilder: (context, index) {
+                  return _buildMessageItem(
+                      _messages[index]['message'], _messages[index]['data']);
+                },
+              ),
             ),
           ),
           Divider(height: 1.0),
@@ -87,31 +82,54 @@ class _ChatBotState extends State<ChatBot> {
   }
 
   Widget _buildTextComposer() {
-    return Center /*IconTheme*/ (
-      // data: IconThemeData(color: Theme.of(context).accentColor),
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 8.0),
-        child: Row(
-          children: <Widget>[
-            Flexible(
-              child: TextField(
-                controller: _controller,
-                // onSubmitted: _handleSubmit,
-                decoration: InputDecoration.collapsed(
-                    hintText: "Send a message",
-                    hintStyle: TextStyle(
-                        color: const Color.fromARGB(255, 202, 202, 202))),
+    return Padding(
+      padding: const EdgeInsets.all(8.0), // Add padding around TextField
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: TextField(
+              controller: _controller,
+              // onSubmitted: _handleSubmit,
+              style: TextStyle(
+                color: Colors.white,
+              ),
+              maxLines: null, // Allow the TextField to grow in height
+
+              decoration: InputDecoration(
+                hintText: "Send a message",
+                hintStyle: TextStyle(color: Colors.white),
+                filled: true, // Optional: Fill the background
+                fillColor: const Color.fromARGB(
+                    0, 0, 0, 0), // Optional: Background color of the text field
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0), // Rounded corners
+                  borderSide: BorderSide(
+                      color: Colors.white, width: 2.0), // White border
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                  borderSide: BorderSide(
+                      color: Colors.white, width: 2.0), // White border on focus
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide(
+                      color: Colors.white,
+                      width: 2.0), // White border when enabled
+                ),
               ),
             ),
-            IconButton(
-                icon: Icon(
-                  Icons.send,
-                  color: const Color.fromARGB(255, 202, 202, 202),
-                ),
-                onPressed: () => () /*_handleSubmit(_controller.text),*/
-                ),
-          ],
-        ),
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.send_rounded,
+              color: const Color.fromARGB(255, 255, 255, 255),
+            ),
+            onPressed: () {
+              // _handleSubmit(_controller.text);
+            },
+          ),
+        ],
       ),
     );
   }
@@ -128,16 +146,20 @@ class _ChatBotState extends State<ChatBot> {
               : CircleAvatar(child: Icon(Icons.android)),
           SizedBox(width: 10.0),
           Flexible(
-            child: Container(
-              decoration: BoxDecoration(
-                color: data == 1 ? Colors.blueAccent : Colors.grey[300],
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              padding: EdgeInsets.all(10.0),
-              child: Text(
-                message,
-                style:
-                    TextStyle(color: data == 1 ? Colors.white : Colors.black),
+            child: Padding(
+              padding:
+                  const EdgeInsets.all(8.0), // Padding for message container
+              child: Container(
+                decoration: BoxDecoration(
+                  color: data == 1 ? Colors.blueAccent : Colors.grey[300],
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                padding: EdgeInsets.all(10.0),
+                child: Text(
+                  message,
+                  style:
+                      TextStyle(color: data == 1 ? Colors.white : Colors.black),
+                ),
               ),
             ),
           ),
