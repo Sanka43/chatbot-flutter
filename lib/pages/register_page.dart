@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -107,7 +109,7 @@ class RegisterPage extends StatelessWidget {
                         onPressed: () {
                           Navigator.pushNamed(context, '/');
                         },
-                        child: Text(
+                        child: const Text(
                           'Already have an account? Login',
                           style: TextStyle(color: Colors.white),
                         ),

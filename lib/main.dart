@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'pages/login_page.dart';
 import 'pages/register_page.dart';
-// import 'pages/home_page.dart';
+import 'pages/home_page.dart';
 
 void main() {
   runApp(Chatbot());
@@ -20,7 +20,7 @@ class Chatbot extends StatelessWidget {
       routes: {
         '/': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
-        // '/home': (context) => HomePage(),
+        '/home': (context) => HomePage(),
       },
     );
   }
