@@ -28,35 +28,74 @@ class _ChatBotState extends State<ChatBot> {
   final List<Map<String, dynamic>> _messages = [];
   final TextEditingController _controller = TextEditingController();
 
-  // void _handleSubmit(String message) {
-  //   _controller.clear();
-  //   setState(() {
-  //     _messages.insert(0, {'data': 1, 'message': message});
-  //   });
-  //   _getResponse(message);
-  // }
-
-  // void _getResponse(String query) async {
-  //   AuthGoogle authGoogle =
-  //       await AuthGoogle(fileJson: "assets/dialogflow_key.json").build();
-  //   Dialogflow dialogflow =
-  //       Dialogflow(authGoogle: authGoogle, language: Language.english);
-  //   AIResponse response = await dialogflow.detectIntent(query);
-
-  //   setState(() {
-  //     _messages.insert(0, {'data': 0, 'message': response.getMessage() ?? ''});
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff1c1c1c),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Color(0XFFffffff)),
         backgroundColor: Color(0xff1c1c1c),
         title: Text(
           "BlueChip",
           style: TextStyle(color: Colors.white),
+        ),
+      ),
+      drawer: Drawer(
+        backgroundColor: Color(0xFF3c3c3c),
+        child: ListView(
+          children: [
+            const DrawerHeader(
+              child: Center(
+                child: Text(
+                  'BlueChip',
+                  style: TextStyle(
+                      color: Color(0xFFffffff),
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.new_label_sharp,
+                color: Color(0xFFffffff),
+              ),
+              title: const Text(
+                'New Chat',
+                style: TextStyle(
+                    color: Color(
+                      0xFFffffff,
+                    ),
+                    fontSize: 20),
+              ),
+              onTap: () {
+                setState(() {
+                  _messages.clear(); // Clear all messages from the list
+                });
+                Navigator.pop(context); // Close the drawer
+              },
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.logout,
+                color: Color(0xFFffffff),
+              ),
+              title: const Text(
+                'Log Out',
+                style: TextStyle(
+                    color: Color(
+                      0xFFffffff,
+                    ),
+                    fontSize: 20),
+              ),
+              onTap: () {
+                setState(() {
+                  _messages.clear(); // Clear all messages from the list
+                });
+                Navigator.pop(context); // Close the drawer
+              },
+            ),
+          ],
         ),
       ),
       body: Column(
@@ -89,33 +128,26 @@ class _ChatBotState extends State<ChatBot> {
           Expanded(
             child: TextField(
               controller: _controller,
-              // onSubmitted: _handleSubmit,
               style: TextStyle(
                 color: Colors.white,
               ),
               maxLines: null, // Allow the TextField to grow in height
-
               decoration: InputDecoration(
                 hintText: "Send a message",
                 hintStyle: TextStyle(color: Colors.white),
-                filled: true, // Optional: Fill the background
-                fillColor: const Color.fromARGB(
-                    0, 0, 0, 0), // Optional: Background color of the text field
+                filled: true,
+                fillColor: const Color.fromARGB(0, 0, 0, 0),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0), // Rounded corners
-                  borderSide: BorderSide(
-                      color: Colors.white, width: 2.0), // White border
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide(color: Colors.white, width: 2.0),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0),
-                  borderSide: BorderSide(
-                      color: Colors.white, width: 2.0), // White border on focus
+                  borderSide: BorderSide(color: Colors.white, width: 2.0),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(
-                      color: Colors.white,
-                      width: 2.0), // White border when enabled
+                  borderSide: BorderSide(color: Colors.white, width: 2.0),
                 ),
               ),
             ),
